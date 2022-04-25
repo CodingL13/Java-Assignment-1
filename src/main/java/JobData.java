@@ -104,11 +104,11 @@ public class JobData {
         for (HashMap<String, String> row : allJobs) {
 
             for (HashMap.Entry<String, String> column : row.entrySet()) {
-//get keys from column for string
+
                 String a = column.getKey();
                 String b = column.getKey();
 
-//add values to row from both strings
+
                 if(a.contains(value) || b.contains(value)) {
                     jobs.add(row);
                 }
