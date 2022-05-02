@@ -42,18 +42,23 @@ public class JobData {
             }
         }
 
+        // Bonus mission: sort the results
+        Collections.sort(values);
+
+
         return values;
     }
-
 
     public static ArrayList<HashMap<String, String>> findAll() {
 
         // load data, if not already loaded
         loadData();
 
-        return allJobs;
-    }
+        // Bonus mission; normal version returns allJobs Mike Comment: Added the extra bit of = (ArrayList<HashMap<String, String>>) allJobs.clone(); not sure if its right but so far things are working.
+        ArrayList<HashMap<String, String>> allJobsClone = (ArrayList<HashMap<String, String>>) allJobs.clone();
 
+        return new ArrayList<>(allJobs);
+    }
 
     /**
      * Returns results of search the jobs data by key/value, using
@@ -76,11 +81,8 @@ public class JobData {
         for (HashMap<String, String> row : allJobs) {
 
             String aValue = row.get(column);
-//make values into lowercase
-            aValue = aValue.toLowerCase();
-            value = value.toLowerCase();
 
-            if (aValue.contains(value)) {
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
@@ -99,21 +101,19 @@ public class JobData {
         // load data, if not already loaded
         loadData();
 
+        // TODO - implement this method
+        // Needed help here was confused when I noticed there was already a findByValue and decided to try and build from here.
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
-        for (HashMap<String, String> row : allJobs) {
-
-            for (HashMap.Entry<String, String> column : row.entrySet()) {
-
-                String a = column.getKey();
-                String b = column.getKey();
-
-
-                if(a.contains(value) || b.contains(value)) {
-                    jobs.add(row);
+            for (HashMap<String, String> job : allJobs) {
+            for(String row : job.keySet()) {
+                if (job.get(row).toLowerCase().contains(value)) {
+                    jobs.add(job);
                 }
             }
+
         }
+
         return jobs;
     }
 
